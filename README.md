@@ -2,7 +2,7 @@
 # My-Actions
 个人收集并适配Github Actions的各类签到大杂烩
 <p align="center">
-    <img alt="Version" src="https://img.shields.io/badge/release-0.0.1-blue"/>
+    <img alt="Version" src="https://img.shields.io/badge/release-0.0.2-blue"/>
     <a href="https://github.com/BlueSkyClouds">
         <img alt="Author" src="https://img.shields.io/badge/author-BlueSkyClouds-blueviolet"/>
     </a>
@@ -33,7 +33,7 @@
 | `IQIYI_COOKIE`          |   爱奇艺authcookie    |爱奇艺cookie中 P00001的值 详情[文字教程](https://www.bilibili.com/read/cv7437179) [视频教程](https://www.bilibili.com/video/BV1B541157DE) 电脑版有效期三个月
 | `BILI_USER`             |   哔哩哔哩账号   |B站账号(由于是账号密码登录,Cookie不会过期,不提供消息失效提醒,并只有Server酱提醒，因为懒.)|
 | `BILI_PASS`             |   哔哩哔哩密码   |B站密码|
-| `V_REF_URL`             |   腾讯视频Request URL |电脑端搜索auth_refresh复制Request url[图片教程](https://cdn.jsdelivr.net/gh/BlueskyClouds/BlueskyClouds.github.io/2020/10/19/img/V_video-1.jpg)|
+| `V_REF_URL`             |   腾讯视频Request URL |电脑端搜索auth_refresh复制整段Request url[图片教程](https://cdn.jsdelivr.net/gh/BlueskyClouds/BlueskyClouds.github.io/2020/10/19/img/V_video-1.jpg)|
 | `V_COOKIE`              |   腾讯视频Cookie   |电脑端搜索auth_refresh复制Cookie[图片教程](https://cdn.jsdelivr.net/gh/BlueskyClouds/BlueskyClouds.github.io/2020/10/19/img/V_video-2.jpg)|
 | `TELECOM_MOBILE`        |   中国电信手机号         |只需要手机号 无需Cookie|
 | `PUSH_KEY`              |   Server酱SCKEY值      | cookie失效推送[server酱的微信通知](http://sc.ftqq.com/3.version) |
