@@ -136,6 +136,8 @@ function txVideoSignIn(headers) {
                 }else{
                     msg = "签到成功，签到分数：" + msg  + "分 🎉"
                 }
+                //签到成功才执行任务签到
+                Collect_task()
                 //判断是否为Cookie失效时才提醒
                 if(SEND_KEY){
                     console.log("腾讯视频会员签到", "", date.getMonth() + 1 + "月" + date.getDate() + "日, " + msg )
@@ -143,8 +145,6 @@ function txVideoSignIn(headers) {
                     notify.sendNotify("腾讯视频会员签到", msg);
                     console.log("腾讯视频会员签到", "", date.getMonth() + 1 + "月" + date.getDate() + "日, " + msg )
                 }
-                //签到成功才执行任务签到
-                Collect_task()
             } else {
                 console.log("腾讯视频会员签到", "", "脚本待更新 ‼️‼️")
                 //输出日志查找原因
