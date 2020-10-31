@@ -40,7 +40,6 @@
 <p align="center">
     <img src="https://cdn.jsdelivr.net/gh/BlueskyClouds/BlueskyClouds.github.io/2020/10/19/img/2020-10-19.jpg">
 </p>
-Tewtz
 #### 获取腾讯视频Cookie:
 <p align="center">
     <img src="https://cdn.jsdelivr.net/gh/BlueskyClouds/BlueskyClouds.github.io/2020/10/19/img/V_video-1.jpg">
