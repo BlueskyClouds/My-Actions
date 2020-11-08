@@ -118,11 +118,7 @@ function ref_url_ver(url = ref_url,_cookie) {
                 exports.main()
             } else {
                 console.log("验证ref_url失败,无法获取个人资料 Cookie失效 ‼️‼️")
-                //判断是否为Cookie失效时才提醒
-                if(SEND_KEY){
-                }else{
-                    notify.sendNotify("腾讯视频会员签到", '验证ref_url失败,无法获取个人资料 Cookie失效 ‼️‼️');
-                }
+                notify.sendNotify("腾讯视频会员签到", '验证ref_url失败,无法获取个人资料 Cookie失效 ‼️‼️');
             }
         }
     })
