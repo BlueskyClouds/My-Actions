@@ -20,5 +20,5 @@ jobs:
          SCKEY: ${{ secrets.SCKEY }}
          cookie_52pj: ${{ secrets.cookie_52pj }}
        run: |
-         pip3 install -r requirements.txt
+         pip3 install -r requirement.txt
          python3 ./Checkin52pj/Checkin52pjForSCF.py
