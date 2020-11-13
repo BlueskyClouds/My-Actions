@@ -1,0 +1,4 @@
+requests
+rsa
+beautifulsoup4
+cryptography
