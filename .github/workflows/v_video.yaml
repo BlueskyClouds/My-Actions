@@ -1,0 +1,37 @@
+name: 腾讯视频签到
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "30 11 * * *"
+    watch:
+        types: [started]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - uses: actions/checkout@v1
+            - name: Use Node.js 10.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 10.x
+            - name: npm install
+              run: |
+                  npm install
+            - name: "运行【腾讯视频签到】"
+              run: |
+                  node function/v_video.js
+              env:
+                  V_REF_URL: ${{ secrets.V_REF_URL }}
+                  V_COOKIE: ${{ secrets.V_COOKIE }}
+                  SEND_KEY: ${{ secrets.SEND_KEY }}
+                  PUSH_KEY: ${{ secrets.PUSH_KEY }}
+                  BARK_PUSH: ${{ secrets.BARK_PUSH }}
+                  TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+                  TG_USER_ID: ${{ secrets.TG_USER_ID }}
+                  BARK_SOUND: ${{ secrets.BARK_SOUND }}
+                  DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+                  DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+#最后推送 2020年11月14日

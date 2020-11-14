@@ -1,0 +1,36 @@
+name: 中国电信签到
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "30 0 * * *"
+    watch:
+         types: [started]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - uses: actions/checkout@v1
+            - name: Use Node.js 10.x
+              uses: actions/setup-node@v1
+              with:
+                node-version: 10.x
+            - name: npm install
+              run: |
+                npm install
+            - name: "运行【中国电信签到】"
+              run: |
+                node function/10000.js
+              env:
+                  TELECOM_MOBILE: ${{ secrets.TELECOM_MOBILE }}
+                  SEND_KEY: ${{ secrets.SEND_KEY }}
+                  PUSH_KEY: ${{ secrets.PUSH_KEY }}
+                  BARK_PUSH: ${{ secrets.BARK_PUSH }}
+                  TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+                  TG_USER_ID: ${{ secrets.TG_USER_ID }}
+                  BARK_SOUND: ${{ secrets.BARK_SOUND }}
+                  DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+                  DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+#最后推送 2020年11月14日
