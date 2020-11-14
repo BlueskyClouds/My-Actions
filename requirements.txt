@@ -1,3 +1,0 @@
-requests
-rsa
-python-dateutil
