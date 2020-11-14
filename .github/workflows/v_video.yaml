@@ -22,7 +22,7 @@ jobs:
                   npm install
             - name: "运行【腾讯视频签到】"
               run: |
-                  node function/v_video.js
+                  node BlueskyClouds/My-Actions/function/v_video.js
               env:
                   V_REF_URL: ${{ secrets.V_REF_URL }}
                   V_COOKIE: ${{ secrets.V_COOKIE }}
