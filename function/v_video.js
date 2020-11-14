@@ -67,7 +67,7 @@ function getAuth(c = _cookie) {
             needParams = ["tvfe_boss_uuid","video_guid","video_platform","pgv_pvid","pgv_info","pgv_pvi","pgv_si","_qpsvr_localtk","RK","ptcz","ptui_loginuin","main_login","vqq_access_token","vqq_appid","vqq_openid","vqq_vuserid","vqq_vusession"]
         }
     }
-   const obj = {}
+    const obj = {}
     if(c){
         c.split('; ').forEach(t=>{
             const [key, val] = t.split(/\=(.*)$/,2)
@@ -159,7 +159,7 @@ function txVideoSignIn(headers) {
                     console.log("腾讯视频会员签到", "", date.getMonth() + 1 + "月" + date.getDate() + "日, " + msg )
                 }
             } else if (data.match(/Not VIP/)) {
-                    console.log("腾讯视频会员签到", "", "非会员无法签到" )
+                console.log("腾讯视频会员签到", "", "非会员无法签到" )
             } else {
                 console.log("腾讯视频会员签到", "", "脚本待更新 ‼️‼️")
                 //输出日志查找原因
