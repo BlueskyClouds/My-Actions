@@ -8,7 +8,7 @@ import os
 msg = ""
 day = ""
 
-serverJ = os.environ['push_key']
+serverJ = os.environ['PUSH_KEY']
 # 尝试登陆
 b = Bilibili()
 b.login(username=os.environ['BILI_USER'], password=os.environ['BILI_PASS'])
