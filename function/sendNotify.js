@@ -1,3 +1,4 @@
+//https://github.com/lxk0301/jd_scripts/edit/master/sendNotify.js
 const querystring = require("querystring");
 const $ = new Env();
 // =======================================微信server酱通知设置区域===========================================
@@ -28,7 +29,6 @@ let TG_USER_ID = '';
 let DD_BOT_TOKEN = '';
 //密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
 let DD_BOT_SECRET = '';
-
 
 if (process.env.PUSH_KEY) {
   SCKEY = process.env.PUSH_KEY;
@@ -73,7 +73,7 @@ async function sendNotify(text, desp, params = {}) {
   await ddBotNotify(text, desp);
 }
 
-function serverNotify(text, desp) {
+function serverNotify(text, desp, timeout = 2100) {
   return  new Promise(resolve => {
     if (SCKEY) {
       //微信server酱推送通知一个\n不会换行，需要两个\n才能换行，故做此替换
@@ -85,25 +85,29 @@ function serverNotify(text, desp) {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }
-      $.post(options, (err, resp, data) => {
-        try {
-          if (err) {
-            console.log('\n发送通知调用API失败！！\n')
-            console.log(err);
-          } else {
-            data = JSON.parse(data);
-            if (data.errno === 0) {
-              console.log('\nserver酱发送通知消息成功\n')
-            } else if (data.errno === 1024) {
-              console.log('\nPUSH_KEY 错误\n')
+      setTimeout(() => {
+        $.post(options, (err, resp, data) => {
+          try {
+            if (err) {
+              console.log('\n发送通知调用API失败！！\n')
+              console.log(err);
+            } else {
+              data = JSON.parse(data);
+              if (data.errno === 0) {
+                console.log('\nserver酱发送通知消息成功\n')
+              } else if (data.errno === 1024) {
+                console.log('\nPUSH_KEY 错误\n')
+              } else {
+                console.log(`server酱发送通知消息异常\n${JSON.stringify(data)}`)
+              }
             }
+          } catch (e) {
+            $.logErr(e, resp);
+          } finally {
+            resolve(data);
           }
-        } catch (e) {
-          $.logErr(e, resp);
-        } finally {
-          resolve(data);
-        }
-      })
+        })
+      }, timeout)
     } else {
       console.log('\n您未提供server酱的SCKEY，取消微信推送消息通知\n');
       resolve()

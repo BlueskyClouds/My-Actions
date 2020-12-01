@@ -1,9 +1,9 @@
-name: 哔哩哔哩漫画签到
+name: 哔咔漫画自动打哔咔
 
 on:
     workflow_dispatch:
     schedule:
-        - cron: "5 16 * * *"
+        - cron: "01 04 * * *"
     watch:
         types: [started]
 
@@ -23,11 +23,11 @@ jobs:
             - name: "安装依赖包"
               run: pip install -r ./requirements.txt
 
-            - name: "运行 哔哩哔哩漫画签到"
-              run: python3 function/bilibili_manga.py
+            - name: "运行 哔咔漫画自动打哔咔"
+              run: python3 function/bika.py
               env:
-                  BILI_USER: ${{ secrets.BILI_USER }}
-                  BILI_PASS: ${{ secrets.BILI_PASS }}
+                  BIKA_USER: ${{ secrets.BIKA_USER }}
+                  BIKA_PASS: ${{ secrets.BIKA_PASS }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}

@@ -1,9 +1,9 @@
-name: 哔哩哔哩漫画签到
+name: 百度签到
 
 on:
     workflow_dispatch:
     schedule:
-        - cron: "5 16 * * *"
+        - cron: "30 04 * * *"
     watch:
         types: [started]
 
@@ -12,22 +12,19 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event.repository.owner.id == github.event.sender.id
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-
-            - name: "Set up Python"
-              uses: actions/setup-python@v1
+            - uses: actions/checkout@v1
+            - name: Use Node.js 10.x
+              uses: actions/setup-node@v1
               with:
-                python-version: 3.8
-
-            - name: "安装依赖包"
-              run: pip install -r ./requirements.txt
-
-            - name: "运行 哔哩哔哩漫画签到"
-              run: python3 function/bilibili_manga.py
+                  node-version: 10.x
+            - name: npm install
+              run: |
+                  npm install
+            - name: "运行【百度签到】"
+              run: |
+                  node function/tieba.js
               env:
-                  BILI_USER: ${{ secrets.BILI_USER }}
-                  BILI_PASS: ${{ secrets.BILI_PASS }}
+                  BDUSS: ${{ secrets.BDUSS }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
@@ -36,4 +33,4 @@ jobs:
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2020年11月26日
+#最后推送 2020年11月25日

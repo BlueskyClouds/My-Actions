@@ -1,13 +1,13 @@
 // version v0.0.1
 // create by BlueSkyClouds
-// detail url: https://github.com/BlueskyClouds/iQIYI-DailyBonus
+// detail url: https://github.com/BlueskyClouds/My-Actions
 
 const exec = require('child_process').execSync
 const fs = require('fs')
 const download = require('download')
 
 const $ = new Env('爱奇艺会员签到');
-const notify = $.isNode() ? require('../sendNotify') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 // 公共变量
 const KEY = process.env.iQIYI_COOKIE
 const SEND_KEY = process.env.SEND_KEY

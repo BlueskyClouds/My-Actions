@@ -1,6 +1,6 @@
 //V2ex-Auto-Sign
 const $ = new Env('V2ex自动签到');
-const notify = $.isNode() ? require('../sendNotify') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 const cookie = process.env.V2EXCK
 const SEND_KEY = process.env.SEND_KEY
 const axios = require("axios")
