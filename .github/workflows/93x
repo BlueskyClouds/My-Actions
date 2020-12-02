@@ -3,7 +3,7 @@ name: 93x论坛签到签到
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 00 * * *"
+    - cron: '0 0/8 * * ?'
   watch:
     types: [started]
 
