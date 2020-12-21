@@ -1,4 +1,4 @@
-//https://github.com/lxk0301/jd_scripts/edit/master/sendNotify.js
+//https://github.com/lxk0301/jd_scripts/blob/master/sendNotify.js
 const querystring = require("querystring");
 const $ = new Env();
 // =======================================微信server酱通知设置区域===========================================

@@ -18,7 +18,6 @@ $.CFG_maxShowBars = 100 //每次通知数量
 $.CFG_maxSignBars = 5 // 每次并发执行多少个任务
 $.CFG_signWaitTime = 5000 // 每次并发间隔时间 (毫秒)
 
-var COOKIE = "Cookie", BDUSS = "BDUSS", TBS = 'tbs', PAGE_NO = 'page_no', ONE = '1', TIMESTAMP = "timestamp", DATA = 'data', FID = 'fid', SIGN_KEY = 'tiebaclient!!!', UTF8 = "utf-8", SIGN = "sign", KW = "kw";
 //var bduss = ''
 var headerInfo = Object.assign(`BDUSS=${bduss}`);
 

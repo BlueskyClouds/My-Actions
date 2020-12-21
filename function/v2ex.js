@@ -66,6 +66,10 @@ function daily() {
                 signstatus =1 ;
             } else {
                 notice += "签到失败\n";
+                if(SEND_KEY){
+                    notify.sendNotify("V2ex自动签到", notice);
+                    return;
+                }
             }
         } catch (err) {
             console.log(err);

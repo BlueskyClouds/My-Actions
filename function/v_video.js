@@ -33,6 +33,7 @@ if (process.env.V_REF_URL) {
 } else {
     //无意义输出方便调试
     console.log("V_REF_URL值未填写 取消运行")
+    //ref_url_ver()
 }
 
 /**
@@ -147,9 +148,6 @@ function txVideoSignIn(headers) {
                 }else{
                     msg = "签到成功，签到分数：" + msg  + "分 🎉"
                 }
-                //签到成功才执行任务签到
-                console.log("腾讯视频会员签到", "", "以下任务仅领取,需要手动完成,如没有完成请无视" )
-                Collect_task()
                 //判断是否为Cookie失效时才提醒
                 if(SEND_KEY){
                     console.log("腾讯视频会员签到", "", date.getMonth() + 1 + "月" + date.getDate() + "日, " + msg )
@@ -171,7 +169,7 @@ function txVideoSignIn(headers) {
 //下载任务签到请求
 function txVideoDownTask1(headers) {
     $.get({
-        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=7`, headers
+        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=7&_=${ parseInt(Math.random()*1000) }`, headers
     }, function(error, response, data) {
         if (error) {
             $.log(error);
@@ -193,7 +191,7 @@ function txVideoDownTask1(headers) {
 //赠送任务签到请求
 function txVideoDownTask2(headers) {
     $.get({
-        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=6`, headers
+        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=6&_=${ parseInt(Math.random()*1000) }`, headers
     }, function(error, response, data) {
         if (error) {
             $.log(error);
@@ -215,7 +213,7 @@ function txVideoDownTask2(headers) {
 //弹幕任务签到请求
 function txVideoDownTask3(headers) {
     $.get({
-        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=3`, headers
+        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=3&_=${ parseInt(Math.random()*1000) }`, headers
     }, function(error, response, data) {
         if (error) {
             $.log(error);
@@ -237,7 +235,7 @@ function txVideoDownTask3(headers) {
 //观看60分钟任务签到请求
 function txVideoDownTask4(headers) {
     $.get({
-        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=1`, headers
+        url: `https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_MissionFaHuo&cmd=4&task_id=1&_=${ parseInt(Math.random()*1000) }`, headers
     }, function(error, response, data) {
         if (error) {
             $.log(error);
@@ -256,27 +254,20 @@ function txVideoDownTask4(headers) {
     })
 }
 
-//任务领取
-function Collect_task() {
-    refCookie().then(data => {
-        this.provinces = data
-        txVideoDownTask1(data)
-        txVideoDownTask2(data)
-        txVideoDownTask3(data)
-        txVideoDownTask4(data)
-    })
-}
-
 //主程序入口
 exports.main = () => new Promise(
     (resovle, reject) => refCookie()
-        .then(params=>Promise.all([ txVideoSignIn(params)])
+        .then(params=>Promise.all([
+            txVideoSignIn(params),
+            setTimeout(() => {txVideoDownTask1(params)},1000),
+            setTimeout(() => {txVideoDownTask2(params)},2000),
+            setTimeout(() => {txVideoDownTask3(params)},3000),
+            setTimeout(() => {txVideoDownTask4(params)},4000)
+            ])
             .then(e=>resovle())
             .catch(e=>reject())
         ).catch(e=>{
-            //如果有错误自行取消下面这行注释
-            //console.log(e)
-            console.log('腾讯视频签到通知-Cookie已失效')
+            console.log(e)
         })
 )
 
