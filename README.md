@@ -89,5 +89,5 @@
 
 ### 访问量
 
-![](http://profile-counter.glitch.me/BlueSkyClouds/count.svg)
+![](https://visitor-badge.glitch.me/badge?page_id=ueqt.My-Actions)
 
