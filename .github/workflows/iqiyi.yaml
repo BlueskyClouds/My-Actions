@@ -25,8 +25,8 @@ jobs:
                   node function/iqiyi.js
               env:
                   iQIYI_COOKIE: ${{ secrets.iQIYI_COOKIE }}
-                  SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
+                  SEND_KEY: ${{ secrets.SEND_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
                   TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
                   TG_USER_ID: ${{ secrets.TG_USER_ID }}
