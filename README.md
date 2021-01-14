@@ -87,7 +87,8 @@
 3. 将pull.yml里面的`mergeMethod: hardreset`修改为`mergeMethod: merge`保存。
 4. ENJOY!上游更改三小时左右就会自动发起同步。
 
-### 鸣谢
+### 鸣谢   
+
 
 特别感谢 [JetBrains](https://www.jetbrains.com/?from=My-Actions) 为开源项目提供免费的 [WebStrom](https://www.jetbrains.com/?from=My-Actions) 等 IDE 的授权  
 [<img src="https://cdn.jsdelivr.net/gh/BlueskyClouds/BlueskyClouds.github.io/2020/12/1/img/idea/jetbrains.png" width="200"/>](https://www.jetbrains.com/?from=My-Actions)
