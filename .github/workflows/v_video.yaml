@@ -3,7 +3,7 @@ name: 腾讯视频签到
 on:
     workflow_dispatch:
     schedule:
-        - cron: "30 13 * * *"
+        - cron: "30 14 * * *"
     watch:
         types: [started]
 
@@ -29,9 +29,18 @@ jobs:
                   SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
+                  QQ_SKEY: ${{ secrets.QQ_SKEY}}
+                  QQ_MODE: ${{ secrets.QQ_MODE}}
+                  PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
+                  PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
+                  QYWX_KEY: ${{ secrets.QYWX_KEY}}
+                  QYWX_AM: ${{ secrets.QYWX_AM}}
+                  TG_PROXY_HOST: ${{ secrets.TG_PROXY_HOST}}
+                  TG_PROXY_PORT: ${{ secrets.TG_PROXY_PORT}}
+                  IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY}}
                   TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
                   TG_USER_ID: ${{ secrets.TG_USER_ID }}
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2020年11月20日
+#最后推送 2021年1月20日

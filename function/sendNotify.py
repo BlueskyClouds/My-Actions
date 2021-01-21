@@ -5,7 +5,7 @@ import hashlib
 import base64
 import json
 import os
-from urllib import parse
+import urllib.parse
 
 class sendNotify:
     #=======================================微信server酱通知设置区域===========================================
@@ -36,6 +36,13 @@ class sendNotify:
     #密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
     DD_BOT_SECRET = '';
 
+    #=======================================QQ酷推通知设置区域===========================================
+    #此处填你申请的SKEY(具体详见文档 https://cp.xuthus.cc/)
+    #注：此处设置github action用户填写到Settings-Secrets里面(Name输入QQ_SKEY)
+    QQ_SKEY = '';
+    #此处填写私聊或群组推送，默认私聊(send或group或者wx)
+    QQ_MODE = 'send';
+
     #Server酱
     if os.environ['PUSH_KEY'] != "":
         SCKEY = os.environ['PUSH_KEY']
@@ -63,10 +70,17 @@ class sendNotify:
     if os.environ['DD_BOT_SECRET'] != "":
         DD_BOT_SECRET = os.environ['DD_BOT_SECRET']
 
+    #QQ酷推
+    if os.environ['QQ_SKEY'] != "":
+        QQ_SKEY = os.environ['QQ_SKEY']
+    if os.environ['QQ_MODE'] != "":
+        QQ_MODE = os.environ['QQ_MODE']
+
+
     def serverNotify(self, text, desp):
         if sendNotify.SCKEY != '':
-            url = 'https://sc.ftqq.com/'+ sendNotify.SCKEY + '.send'
-            response = json.dumps(requests.post(url, data={'text': text, 'desp': desp}).json(),ensure_ascii=False)
+            url = 'http://sc.ftqq.com/'+ sendNotify.SCKEY + '.send'
+            response = json.dumps(requests.post(url, data={'text': text, 'desp': desp.replace("\n", "\n\n")}).json(),ensure_ascii=False)
             data = json.loads(response)
             ##print(data)
             if data['errno'] == 0:
@@ -81,7 +95,7 @@ class sendNotify:
 
     def BarkNotify(self, text, desp):
         if sendNotify.BARK_PUSH != '':
-            url = sendNotify.BARK_PUSH + '/' + parse.quote(text) + '/' + parse.quote(desp) + '?sound=' + sendNotify.BARK_SOUND
+            url = sendNotify.BARK_PUSH + '/' + urllib.parse.quote(text) + '/' + urllib.parse.quote(desp) + '?sound=' + sendNotify.BARK_SOUND
             headers = {'Content-type': "application/x-www-form-urlencoded"}
             response = json.dumps(requests.get(url,headers=headers).json(),ensure_ascii=False)
             data = json.loads(response)
@@ -132,12 +146,13 @@ class sendNotify:
                 'Content-Type': 'application/json;charset=utf-8'
             }
             if sendNotify.DD_BOT_SECRET != '':
-                timestamp = long(round(time.time() * 1000))
-                secret_enc = bytes(secret).encode('utf-8')
+                timestamp = str(round(time.time() * 1000))
+                secret = sendNotify.DD_BOT_SECRET
+                secret_enc = secret.encode('utf-8')
                 string_to_sign = '{}\n{}'.format(timestamp, secret)
-                string_to_sign_enc = bytes(string_to_sign).encode('utf-8')
+                string_to_sign_enc = string_to_sign.encode('utf-8')
                 hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
-                sign = urllib.quote_plus(base64.b64encode(hmac_code))
+                sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
                 url = 'https://oapi.dingtalk.com/robot/send?access_token='+sendNotify.DD_BOT_TOKEN+'&timestamp='+timestamp+'&sign='+sign
 
             response = requests.post(url=url, data=json.dumps(data), headers=headers).text
@@ -149,6 +164,25 @@ class sendNotify:
             print('\n您未提供钉钉的有关数据，取消钉钉推送消息通知\n')
             pass
 
+    def coolpush(self, text, desp):
+        if sendNotify.QQ_SKEY != '':
+            url = "https://push.xuthus.cc/" + sendNotify.QQ_MODE + "/" + sendNotify.QQ_SKEY
+            params = {"c": desp, "t": text}
+            headers = {'content-type': 'charset=utf8'}
+            response = json.dumps(requests.post(url=url, params=params, headers=headers).json(),ensure_ascii=False)
+            datas = json.loads(response)
+
+            if datas['code'] == 200:
+                print('\nQQ推送发送通知消息成功\n')
+            elif datas['code'] == 500:
+                print('\nQQ推送QQ_SKEY错误\n')
+            else:
+                print('\n发送通知调用API失败！！\n')
+
+        else:
+            print('\n您未提供酷推的SKEY，取消QQ推送消息通知\n')
+            pass
+
     def send(self, **kwargs):
         send = sendNotify()
         title = kwargs.get("title", "")
@@ -157,6 +191,7 @@ class sendNotify:
         send.BarkNotify(title,msg)
         send.tgBotNotify(title,msg)
         send.dingNotify(title,msg)
+        send.coolpush(title,msg)
 
 # if __name__ == "__main__":
 #     send(title = '这是标题',msg = '这是内容')

@@ -20,10 +20,11 @@
   "dependencies": {
     "download": "^8.0.0",
     "request": "^2.88.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
     "request-promise": "^4.2.5",
     "got": "^11.7.0",
+    "tunnel": "0.0.6",
     "tough-cookie": "^4.0.0"
   }
 }
