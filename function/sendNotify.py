@@ -116,7 +116,7 @@ class sendNotify:
 
             url = 'https://api.telegram.org/bot' + sendNotify.TG_BOT_TOKEN + '/sendMessage'
             headers = {'Content-type': "application/x-www-form-urlencoded"}
-            body = 'chat_id=' + sendNotify.TG_USER_ID + '&text=' + parse.quote(text) + '\n\n' + parse.quote(desp) + '&disable_web_page_preview=true'
+            body = 'chat_id=' + sendNotify.TG_USER_ID + '&text=' + urllib.parse.quote(text) + '\n\n' + urllib.parse.quote(desp) + '&disable_web_page_preview=true'
             response = json.dumps(requests.post(url, data=body,headers=headers).json(),ensure_ascii=False)
 
             data = json.loads(response)
