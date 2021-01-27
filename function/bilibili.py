@@ -9,6 +9,7 @@ import requests
 
 sendNotify = sendNotify()
 SEND_KEY = os.environ['SEND_KEY']
+BILI_COOKIE = os.environ['BILI_COOKIE'].replace(" ", "")
 
 class BiliBiliCheckIn(object):
     # 待测试，需要大会员账号测试领取福利
@@ -239,7 +240,7 @@ class BiliBiliCheckIn(object):
     def main(self):
         msg_list = []
         bilibili_cookie = self.bilibili_cookie_list
-        bili_jct = b.get_csrf()
+        bili_jct = bilibili_cookie.get("bili_jct")
 
         if os.environ['BILI_NUM'] == "":
             coin_num = 0 # 投币数量
@@ -357,14 +358,18 @@ class BiliBiliCheckIn(object):
 if __name__ == "__main__":
     # 未填写参数取消运行
     if os.environ['BILI_USER'] == "" or os.environ['BILI_PASS'] == "":
-        print("未填写哔哩哔哩账号或密码取消运行")
-        exit(0)
+        if os.environ['BILI_COOKIE'] == "":
+            print("未填写哔哩哔哩账号密码或COOKIE取消运行")
+            exit(0)
 
-    b = Bilibili()
-    login = b.login(username=os.environ['BILI_USER'], password=os.environ['BILI_PASS'])
+    if BILI_COOKIE == "":
+        b = Bilibili()
+        login = b.login(username=os.environ['BILI_USER'], password=os.environ['BILI_PASS'])
+        if login == False:
+            sendNotify.send(title = u"哔哩哔哩签到", msg = "登录失败 账号或密码错误，详情前往Github查看")
+            exit(0)
+        _bilibili_cookie_list = b.get_cookies()
+    else:
+        _bilibili_cookie_list = {cookie.split('=')[0]:cookie.split('=')[-1] for cookie in BILI_COOKIE.split(';')}
 
-    if login == False:
-        sendNotify.send(title = u"哔哩哔哩签到", msg = "登录失败 账号或密码错误，详情前往Github查看")
-        exit(0)
-    _bilibili_cookie_list = b.get_cookies()
     BiliBiliCheckIn(bilibili_cookie_list=_bilibili_cookie_list).main()

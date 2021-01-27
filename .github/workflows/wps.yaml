@@ -1,0 +1,40 @@
+name: WPS自动邀请
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "45 0 * * *"
+  watch:
+    types: [started]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: "安装依赖包"
+        run: pip install -r ./requirements.txt
+
+      - name: "运行 WPS自动邀请"
+        run: python3 function/wps_invitation.py
+        env:
+          WPS_KEY: ${{ secrets.WPS_KEY }}
+          SEND_KEY: ${{ secrets.SEND_KEY }}
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          QQ_SKEY: ${{ secrets.QQ_SKEY}}
+          QQ_MODE: ${{ secrets.QQ_MODE}}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+#最后推送 2021年1月26日

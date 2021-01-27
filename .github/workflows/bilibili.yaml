@@ -28,6 +28,7 @@ jobs:
               env:
                   BILI_USER: ${{ secrets.BILI_USER }}
                   BILI_PASS: ${{ secrets.BILI_PASS }}
+                  BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
                   BILI_NUM: ${{ secrets.BILI_NUM }}
                   BILI_TYPE: ${{ secrets.BILI_TYPE }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
