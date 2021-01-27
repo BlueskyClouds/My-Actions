@@ -87,11 +87,11 @@ if __name__ == '__main__':
     punch_in_response = punch_in(current_token)
     result = punch_in_response["data"]["res"]
     if result["status"] == "ok":
-        print("打卡成功, 最后一次打卡: %s" % result["punchInLastDay"])
         msg = "打卡成功, 最后一次打卡: %s" % result["punchInLastDay"]
+        print(msg)
     else:
-        print("重复签到 - Already punch-in")
-        msg = '重复签到'
+        msg = '重复签到 - Already punch-in'
+        print(msg)
 
 if SEND_KEY == '':
     sendNotify.send(title = u"哔咔漫画自动打哔咔", msg = msg)

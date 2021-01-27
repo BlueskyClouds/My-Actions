@@ -33,6 +33,7 @@ jobs:
                   PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
                   PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
                   QYWX_KEY: ${{ secrets.QYWX_KEY}}
+                  QYWX_AM: ${{ secrets.QYWX_AM}}
                   TG_PROXY_HOST: ${{ secrets.TG_PROXY_HOST}}
                   TG_PROXY_PORT: ${{ secrets.TG_PROXY_PORT}}
                   IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY}}
@@ -41,4 +42,4 @@ jobs:
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年1月9日
+#最后推送 2021年1月20日

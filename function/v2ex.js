@@ -39,7 +39,7 @@ function check() {
                 reg = /每日登录奖励已领取/;
                 if (reg.test(res.data)) {
                     notice += "今天已经签到过啦\n";
-                    signstatus =1 ;
+                    signstatus = 1;
                 } else {
                     reg = /redeem\?once=(.*?)'/;
                     once = res.data.match(reg)[1];
@@ -62,7 +62,7 @@ function daily() {
             reg = /已成功领取每日登录奖励/;
             if (reg.test(res.data)) {
                 notice += "签到成功\n";
-                signstatus =1 ;
+                signstatus = 1;
             } else {
                 notice += "签到失败\n";
                 if(SEND_KEY){
@@ -96,32 +96,28 @@ function balance() {
 function sign() {
     return new Promise(async (resolve) => {
         try {
+
             if (!cookie) {
                 console.log("你的cookie呢！！！");
                 return;
             }
             await check();
-            if (ckstatus == 1 ) {
-                if (once&& signstatus==0) {
-                    await daily();
-                    if (signstatus==0) {
-                        //如果签到失败
-                        await check();
-                        await daily();
-                    }
-                }
+            if (once && signstatus == 0) {
+                await daily();
                 await balance();
-            } else {}
-            console.log(notice);
-            if(!SEND_KEY){
-                notify.sendNotify("V2ex自动签到", notice);
+                if (signstatus == 0) {
+                    console.log("签到失败")
+                }
             }
+            console.log(notice);
+            notify.sendNotify("V2ex自动签到", notice);
         } catch (err) {
             console.log(err);
         }
         resolve();
     });
 }
+
 sign();
 
 function timeFormat(time) {
