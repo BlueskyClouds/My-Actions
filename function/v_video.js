@@ -258,7 +258,6 @@ function txVideoDownTask4(headers) {
 exports.main = () => new Promise(
     (resovle, reject) => refCookie()
         .then(params=>Promise.all([
-            txVideoSignIn(params),
             setTimeout(() => {txVideoDownTask1(params)},1000),
             setTimeout(() => {txVideoDownTask2(params)},2000),
             setTimeout(() => {txVideoDownTask3(params)},3000),
