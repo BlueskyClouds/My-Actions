@@ -1,0 +1,1 @@
+https://smallairport.icu/api/v1/client/subscribe?token=c2c216f4c1cf4f176f5cc4c7df77f537
