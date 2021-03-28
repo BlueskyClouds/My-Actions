@@ -144,7 +144,7 @@ def main():
             sio.write("邀请失败: 用户ID错误, 请检查用户sid\n\n")
 
     desp = sio.getvalue()
-    sendNotify.send(title = "Wps签到邀请",msg = desp)
+    sendNotify.send(title = "帅气的林老师，Wps签到邀请信息，请查收",msg = desp)
     print(desp)
     return desp
 
