@@ -3,7 +3,7 @@ name: WPS自动邀请
 on:
   workflow_dispatch:
   schedule:
-    - cron: "45 0 * * *"
+    - cron: "2 0,2 * * *"
   watch:
     types: [started]
 
