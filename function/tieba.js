@@ -9,7 +9,7 @@
 */
 
 const $ = new Env('百度签到')
-const notify = $.isNode() ? require('../sendNotify') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 const SEND_KEY = process.env.SEND_KEY
 const bduss = process.env.BDUSS
 const jump = process.env.JUMP

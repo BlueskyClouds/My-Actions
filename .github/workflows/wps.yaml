@@ -24,7 +24,7 @@ jobs:
         run: pip install -r ./requirements.txt
 
       - name: "运行 WPS自动邀请"
-        run: python3 function/wps/wps_invitation.py
+        run: python3 function/wps_invitation.py
         env:
           WPS_KEY: ${{ secrets.WPS_KEY }}
           SEND_KEY: ${{ secrets.SEND_KEY }}
@@ -37,4 +37,4 @@ jobs:
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年4月09日
+#最后推送 2021年3月26日

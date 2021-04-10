@@ -7,67 +7,54 @@ import json
 import os
 import urllib.parse
 
-
 class sendNotify:
-    # =======================================微信server酱通知设置区域===========================================
-    # 此处填你申请的SCKEY.
-    # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入PUSH_KEY)
+    #=======================================微信server酱通知设置区域===========================================
+    #此处填你申请的SCKEY.
+    #注：此处设置github action用户填写到Settings-Secrets里面(Name输入PUSH_KEY)
     SCKEY = ''
 
-    # =======================================Bark App通知设置区域===========================================
-    # 此处填你BarkAPP的信息(IP/设备码，例如：https://api.day.app/XXXXXXXX)
-    # 注：此处设置github action用户填写到Settings-Secrets里面（Name输入BARK_PUSH）
+    #=======================================Bark App通知设置区域===========================================
+    #此处填你BarkAPP的信息(IP/设备码，例如：https://api.day.app/XXXXXXXX)
+    #注：此处设置github action用户填写到Settings-Secrets里面（Name输入BARK_PUSH）
     BARK_PUSH = ''
-    # BARK app推送铃声,铃声列表去APP查看复制填写
-    # 注：此处设置github action用户填写到Settings-Secrets里面（Name输入BARK_SOUND , Value输入app提供的铃声名称，例如:birdsong）
+    #BARK app推送铃声,铃声列表去APP查看复制填写
+    #注：此处设置github action用户填写到Settings-Secrets里面（Name输入BARK_SOUND , Value输入app提供的铃声名称，例如:birdsong）
     BARK_SOUND = ''
 
-    # =======================================telegram机器人通知设置区域===========================================
-    # 此处填你telegram bot 的Token，例如：1077xxx4424:AAFjv0FlexboxEMGfi22B4yh15R5uw
-    # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入TG_BOT_TOKEN)
-    TG_BOT_TOKEN = ''
-    # 此处填你接收通知消息的telegram用户的id，例如：129xxx206
-    # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入TG_USER_ID)
-    TG_USER_ID = ''
+    #=======================================telegram机器人通知设置区域===========================================
+    #此处填你telegram bot 的Token，例如：1077xxx4424:AAFjv0FcqxxxxxxgEMGfi22B4yh15R5uw
+    #注：此处设置github action用户填写到Settings-Secrets里面(Name输入TG_BOT_TOKEN)
+    TG_BOT_TOKEN = '';
+    #此处填你接收通知消息的telegram用户的id，例如：129xxx206
+    #注：此处设置github action用户填写到Settings-Secrets里面(Name输入TG_USER_ID)
+    TG_USER_ID = '';
 
-    # =======================================钉钉机器人通知设置区域===========================================
-    # 此处填你钉钉 bot 的webhook，例如：5a544165465465645d0f31dca676e7bd07415assayed
-    # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入DD_BOT_TOKEN)
-    DD_BOT_TOKEN = ''
-    # 密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
-    DD_BOT_SECRET = ''
+    #=======================================钉钉机器人通知设置区域===========================================
+    #此处填你钉钉 bot 的webhook，例如：5a544165465465645d0f31dca676e7bd07415asdasd
+    #注：此处设置github action用户填写到Settings-Secrets里面(Name输入DD_BOT_TOKEN)
+    DD_BOT_TOKEN = '';
+    #密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
+    DD_BOT_SECRET = '';
 
-    # =======================================企业微信机器人通知设置区域=========================================== 此处填你企业微信机器人的
-    # webhook(详见文档 https://work.weixin.qq.com/api/doc/90000/90136/91770)，例如：693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa
-    # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_KEY)
-    QYWX_KEY = ''
-
-    # =======================================企业微信应用消息通知设置区域=========================================== 此处填你企业微信应用消息的
-    # 值(详见文档 https://work.weixin.qq.com/api/doc/90000/90135/90236)，依次填上corpid的值,corpsecret的值,touser的值,
-    # agentid的值，素材库图片id（见https://github.com/lxk0301/jd_scripts/issues/519) 注意用,号隔开，例如：wwcff56746d9adwers,
-    # B-791548lnzXBE6_BWfxdf3kSTMJr9vFEPKAbh6WERQ,mingcheng,1000001,2COXgjH2UIfERF2zxrtUOKgQ9XklUqMdGSWLBoW_lSDAdafat
-    # 增加一个选择推送消息类型，用图文消息直接填写素材库图片id的值，用卡片消息就填写0(就是数字零) 注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_AM)
-    # QYWX_AM = ''
-
-    # =======================================QQ酷推通知设置区域===========================================
-    # 此处填你申请的SKEY(具体详见文档 https://cp.xuthus.cc/)
-    # 注：此处设置github action用户填写到Settings-Secrets里面(Name输入QQ_SKEY)
-    # QQ_SKEY = ''
+    #=======================================QQ酷推通知设置区域===========================================
+    #此处填你申请的SKEY(具体详见文档 https://cp.xuthus.cc/)
+    #注：此处设置github action用户填写到Settings-Secrets里面(Name输入QQ_SKEY)
+    # QQ_SKEY = '';
     # #此处填写私聊或群组推送，默认私聊(send或group或者wx)
-    # QQ_MODE = 'send'
+    # QQ_MODE = 'send';
 
-    # =======================================push+设置区域=======================================
-    # 官方文档：https://www.pushplus.plus/
-    # PUSH_PLUS_TOKEN：微信扫码登录后一对一推送或一对多推送下面的token(您的Token)，不提供PUSH_PLUS_USER则默认为一对一推送
-    PUSH_PLUS_TOKEN = ''
-    # PUSH_PLUS_USER： 一对多推送的“群组编码”（一对多推送下面->您的群组(如无则新建)->群组编码，如果您是创建群组人。也需点击“查看二维码”扫描绑定，否则不能接受群组消息推送）
-    PUSH_PLUS_USER = ''
+    #=======================================push+设置区域=======================================
+    #官方文档：https://www.pushplus.plus/
+    #PUSH_PLUS_TOKEN：微信扫码登录后一对一推送或一对多推送下面的token(您的Token)，不提供PUSH_PLUS_USER则默认为一对一推送
+    PUSH_PLUS_TOKEN = '';
+    #PUSH_PLUS_USER： 一对多推送的“群组编码”（一对多推送下面->您的群组(如无则新建)->群组编码，如果您是创建群组人。也需点击“查看二维码”扫描绑定，否则不能接受群组消息推送）
+    PUSH_PLUS_USER = '';
 
-    # Server酱
+    #Server酱
     if os.environ['PUSH_KEY'] != "":
         SCKEY = os.environ['PUSH_KEY']
 
-    # Bark App
+    #Bark App
     if os.environ['BARK_PUSH'] != "":
         if os.environ['BARK_PUSH'].find("https") != -1 or os.environ['BARK_PUSH'].find("http") != -1:
             BARK_PUSH = os.environ['PUSH_KEY']
@@ -78,31 +65,25 @@ class sendNotify:
     elif BARK_PUSH != "" or BARK_PUSH.find("https") != -1 or BARK_PUSH.find("http") != -1:
         BARK_PUSH = "https://api.day.app/" + BARK_PUSH
 
-    # telegram
+    #telegram
     if os.environ['TG_BOT_TOKEN'] != "":
         TG_BOT_TOKEN = os.environ['TG_BOT_TOKEN']
     if os.environ['TG_USER_ID'] != "":
         TG_USER_ID = os.environ['TG_USER_ID']
 
-    # 钉钉机器人
+    #钉钉机器人
     if os.environ['DD_BOT_TOKEN'] != "":
         DD_BOT_TOKEN = os.environ['DD_BOT_TOKEN']
     if os.environ['DD_BOT_SECRET'] != "":
         DD_BOT_SECRET = os.environ['DD_BOT_SECRET']
 
-    # QQ酷推
+    #QQ酷推
     # if os.environ['QQ_SKEY'] != "":
     #     QQ_SKEY = os.environ['QQ_SKEY']
     # if os.environ['QQ_MODE'] != "":
     #     QQ_MODE = os.environ['QQ_MODE']
 
-    # 企业微信
-    # if os.environ['QYWX_KEY'] != "":
-    #     QQ_SKEY = os.environ['QYWX_KEY']
-    # if os.environ['QYWX_AM'] != "":
-    #     QQ_MODE = os.environ['QYWX_AM']
-
-    # push+
+    #push+
     if os.environ['PUSH_PLUS_TOKEN'] != "":
         PUSH_PLUS_TOKEN = os.environ['PUSH_PLUS_TOKEN']
     if os.environ['PUSH_PLUS_USER'] != "":
@@ -110,16 +91,16 @@ class sendNotify:
 
     def serverNotify(self, text, desp):
         if sendNotify.SCKEY != '':
-            url = 'https://sctapi.ftqq.com/' + sendNotify.SCKEY + '.send'
+            url = 'https://sctapi.ftqq.com/'+ sendNotify.SCKEY + '.send'
             if "\n" in desp:
-                desp = desp.replace("\n", "\n\n")
+                desp =  desp.replace("\n", "\n\n")
             data = {
                 'text': text,
                 'desp': desp
             }
-            response = json.dumps(requests.post(url, data).json(), ensure_ascii=False)
+            response = json.dumps(requests.post(url, data).json(),ensure_ascii=False)
             datas = json.loads(response)
-            # print(datas)
+            #print(datas)
             if datas['code'] == 0:
                 print('\nserver酱发送通知消息成功\n')
             elif datas['code'] == 40001:
@@ -132,12 +113,11 @@ class sendNotify:
 
     def BarkNotify(self, text, desp):
         if sendNotify.BARK_PUSH != '':
-            url = sendNotify.BARK_PUSH + '/' + urllib.parse.quote(text) + '/' + urllib.parse.quote(
-                desp) + '?sound=' + sendNotify.BARK_SOUND
+            url = sendNotify.BARK_PUSH + '/' + urllib.parse.quote(text) + '/' + urllib.parse.quote(desp) + '?sound=' + sendNotify.BARK_SOUND
             headers = {'Content-type': "application/x-www-form-urlencoded"}
-            response = json.dumps(requests.get(url, headers=headers).json(), ensure_ascii=False)
+            response = json.dumps(requests.get(url,headers=headers).json(),ensure_ascii=False)
             data = json.loads(response)
-            # print(data)
+            #print(data)
             if data['code'] == 400:
                 print('\n找不到 Key 对应的 DeviceToken\n')
             elif data['code'] == 200:
@@ -154,12 +134,11 @@ class sendNotify:
 
             url = 'https://api.telegram.org/bot' + sendNotify.TG_BOT_TOKEN + '/sendMessage'
             headers = {'Content-type': "application/x-www-form-urlencoded"}
-            body = 'chat_id=' + sendNotify.TG_USER_ID + '&text=' + urllib.parse.quote(
-                text) + '\n\n' + urllib.parse.quote(desp) + '&disable_web_page_preview=true'
-            response = json.dumps(requests.post(url, data=body, headers=headers).json(), ensure_ascii=False)
+            body = 'chat_id=' + sendNotify.TG_USER_ID + '&text=' + urllib.parse.quote(text) + '\n\n' + urllib.parse.quote(desp) + '&disable_web_page_preview=true'
+            response = json.dumps(requests.post(url, data=body,headers=headers).json(),ensure_ascii=False)
 
             data = json.loads(response)
-            if data['ok']:
+            if data['ok'] == True:
                 print('\nTelegram发送通知消息完成\n')
             elif data['error_code'] == 400:
                 print('\n请主动给bot发送一条消息并检查接收用户ID是否正确。\n')
@@ -174,11 +153,11 @@ class sendNotify:
 
     def dingNotify(self, text, desp):
         if sendNotify.DD_BOT_TOKEN != '':
-            url = 'https://oapi.dingtalk.com/robot/send?access_token=' + sendNotify.DD_BOT_TOKEN
+            url = 'https://oapi.dingtalk.com/robot/send?access_token='+sendNotify.DD_BOT_TOKEN
             data = {
                 "msgtype": "text",
                 "text": {
-                    'content': text + desp
+                    'content': text+desp
                 }
             }
             headers = {
@@ -192,7 +171,7 @@ class sendNotify:
                 string_to_sign_enc = string_to_sign.encode('utf-8')
                 hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
                 sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
-                url = 'https://oapi.dingtalk.com/robot/send?access_token=' + sendNotify.DD_BOT_TOKEN + '&timestamp=' + timestamp + '&sign=' + sign
+                url = 'https://oapi.dingtalk.com/robot/send?access_token='+sendNotify.DD_BOT_TOKEN+'&timestamp='+timestamp+'&sign='+sign
 
             response = requests.post(url=url, data=json.dumps(data), headers=headers).text
             if json.loads(response)['errcode'] == 0:
@@ -225,21 +204,21 @@ class sendNotify:
         if sendNotify.PUSH_PLUS_TOKEN != '':
             url = 'http://www.pushplus.plus/send'
             data = {
-                "token": sendNotify.PUSH_PLUS_TOKEN,
-                "title": text,
-                "content": desp
+                "token":sendNotify.PUSH_PLUS_TOKEN,
+                "title":text,
+                "content":desp
             }
             if sendNotify.PUSH_PLUS_USER != '':
                 data = {
-                    "token": sendNotify.PUSH_PLUS_TOKEN,
-                    "title": text,
-                    "content": desp,
-                    "topic": sendNotify.PUSH_PLUS_USER,
-                    "template": "html"
+                "token":sendNotify.PUSH_PLUS_TOKEN,
+                "title":text,
+                "content":desp,
+                "topic":sendNotify.PUSH_PLUS_USER,
+                "template":"html"
                 }
-            body = json.dumps(data).encode(encoding='utf-8')
-            headers = {'Content-Type': 'application/json'}
-            response = json.dumps(requests.post(url, data=body, headers=headers).json(), ensure_ascii=False)
+            body=json.dumps(data).encode(encoding='utf-8')
+            headers = {'Content-Type':'application/json'}
+            response = json.dumps(requests.post(url,data=body,headers=headers).json(),ensure_ascii=False)
             datas = json.loads(response)
             if datas['code'] == 200:
                 print('\npush+发送通知消息成功\n')
@@ -255,11 +234,11 @@ class sendNotify:
         send = sendNotify()
         title = kwargs.get("title", "")
         msg = kwargs.get("msg", "")
-        send.serverNotify(title, msg)
-        send.BarkNotify(title, msg)
-        send.tgBotNotify(title, msg)
-        send.dingNotify(title, msg)
-        send.pushNotify(title, msg)
+        send.serverNotify(title,msg)
+        send.BarkNotify(title,msg)
+        send.tgBotNotify(title,msg)
+        send.dingNotify(title,msg)
+        send.pushNotify(title,msg)
         # send.coolpush(title,msg)
 
 # if __name__ == "__main__":

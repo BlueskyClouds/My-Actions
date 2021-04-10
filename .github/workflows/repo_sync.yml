@@ -22,8 +22,8 @@ jobs:
         uses: repo-sync/github-sync@v2
         if: env.PAT
         with:
-          source_repo: "https://github.com/BlueSkyClouds/My-Actions.git"
+          source_repo: "https://github.com/BlueskyClouds/My-Actions.git"
           source_branch: "master"
           destination_branch: "master"
           github_token: ${{ secrets.PAT || github.event.client_payload.PAT }}
-#最后推送 2021年4月09日
+#最后推送 2021年3月26日

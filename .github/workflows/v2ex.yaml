@@ -22,7 +22,7 @@ jobs:
                   npm install
             - name: "运行【V2ex自动签到】"
               run: |
-                  node function/v2ex/v2ex.js
+                  node function/v2ex.js
               env:
                   V2EXCK: ${{ secrets.V2EXCK }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
@@ -40,4 +40,4 @@ jobs:
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年4月09日
+#最后推送 2021年3月26日
