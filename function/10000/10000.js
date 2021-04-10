@@ -1,124 +1,80 @@
-//V2ex-Auto-Sign
-const $ = new Env('V2ex自动签到');
-const notify = $.isNode() ? require('./sendNotify') : '';
-const cookie = process.env.V2EXCK
+// version v0.0.1
+// create by BlueSkyClouds
+// detail url: https://github.com/BlueskyClouds/My-Actions
+
+const exec = require('child_process').execSync
+const fs = require('fs')
+const download = require('download')
+
+const $ = new Env('中国电信签到');
+const notify = $.isNode() ? require('../sendNotify') : '';
+// 公共变量
+const KEY = process.env.TELECOM_MOBILE
 const SEND_KEY = process.env.SEND_KEY
-const axios = require("axios")
 const UTC8 = new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000;
 
-once = null;
-ckstatus = 1;
-signstatus = 0;
-notice = timeFormat(UTC8) + "\n";
-
-const header = {
-    headers: {
-        Referer: "https://www.v2ex.com/mission",
-        Host: "www.v2ex.com",
-        "user-agent": "Mozilla/5.0 (Linux; Android 10; Redmi K30) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.83 Mobile Safari/537.36",
-        cookie: `'${cookie}'`,
-    },
-};
-
-//获取once检查是否已签到
-function check() {
-    return new Promise(async (resolve) => {
-        try {
-            let url = "https://www.v2ex.com/mission/daily";
-            let res = await axios.get(url, header);
-            reg1 = /需要先登录/;
-            if (reg1.test(res.data)) {
-                console.log("cookie失效");
-                ckstatus = 0;
-                notice += "cookie失效";
-                if(SEND_KEY){
-                    notify.sendNotify("V2ex自动签到", notice);
-                    return;
-                }
-            } else {
-                reg = /每日登录奖励已领取/;
-                if (reg.test(res.data)) {
-                    notice += "今天已经签到过啦\n";
-                    signstatus = 1;
-                } else {
-                    reg = /redeem\?once=(.*?)'/;
-                    once = res.data.match(reg)[1];
-                    console.log(`获取成功 once:${once}`);
-                }
-            }
-        } catch (err) {
-            console.log(err);
-        }
-        resolve();
-    });
+async function downFile () {
+    const url = 'https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.js'
+    await download(url, './')
 }
 
-//每日签到
-function daily() {
-    return new Promise(async (resolve) => {
-        try {
-            let url = `https://www.v2ex.com/mission/daily/redeem?once=${once}`;
-            let res = await axios.get(url, header);
-            reg = /已成功领取每日登录奖励/;
-            if (reg.test(res.data)) {
-                notice += "签到成功\n";
-                signstatus = 1;
-            } else {
-                notice += "签到失败\n";
-                if(SEND_KEY){
-                    notify.sendNotify("V2ex自动签到", notice);
-                    return;
-                }
-            }
-        } catch (err) {
-            console.log(err);
-        }
-        resolve();
-    });
+async function changeFiele () {
+    let content = await fs.readFileSync('./10000.js', 'utf8')
+    //替换各种无用信息.
+    content = content.replace("\"\\n\"", "\"\"")
+    content = content.replace("中国电信", ``)
+    content = content.replace(/==============\\ud83d\\udce3\\u7cfb\\u7edf\\u901a\\u77e5\\ud83d\\udce3==============/, ``)
+    content = content.replace("\\ud83d\\udd14${this.name}, \\u5f00\\u59cb!", ``)
+    content = content.replace("\\ud83d\\udd14${this.name}, \\u7ed3\\u675f! \\ud83d\\udd5b ${e} \\u79d2", ``)
+
+    content = content.replace("const phonedat = $.getdata($.KEY_mobile)", `const phonedat = '${KEY}'`)
+    await fs.writeFileSync( './10000.js', content, 'utf8')
 }
 
-//查询余额
-function balance() {
-    return new Promise(async (resolve) => {
-        try {
-            let url = "https://www.v2ex.com/balance";
-            let res = await axios.get(url, header);
-            reg = /\d+?\s的每日登录奖励\s\d+\s铜币/;
-            console.log(res.data.match(reg)[0]);
-            notice += res.data.match(reg)[0];
-        } catch (err) {
-            console.log(err);
-        }
-        resolve();
-    });
+async function deleteFile(path) {
+    // 查看文件result.txt是  否存在,如果存在,先删除
+    const fileExists = await fs.existsSync(path);
+    // console.log('fileExists', fileExists);
+    if (fileExists) {
+        const unlinkRes = await fs.unlinkSync(path);
+        // console.log('unlinkRes', unlinkRes)
+    }
 }
 
-function sign() {
-    return new Promise(async (resolve) => {
-        try {
+async function start() {
+    if (!KEY) {
+        console.log('请填写电信号码后再继续')
+        return
+    }
+    // 下载最新代码
+    await downFile();
+    console.log('下载代码完毕')
+    // 替换变量
+    await changeFiele();
+    console.log('替换变量完毕')
+    // 执行
+    await exec("node 10000.js >> result.txt");
+    console.log('执行完毕')
+    const path = "./result.txt";
+    let content = "";
+    if (fs.existsSync(path)) {
+        content = fs.readFileSync(path, "utf8");
+    }
 
-            if (!cookie) {
-                console.log("你的cookie呢！！！");
-                return;
-            }
-            await check();
-            if (once && signstatus == 0) {
-                await daily();
-                await balance();
-                if (signstatus == 0) {
-                    console.log("签到失败")
-                }
-            }
-            console.log(notice);
-            notify.sendNotify("V2ex自动签到", notice);
-        } catch (err) {
-            console.log(err);
-        }
-        resolve();
-    });
+    if (content.includes("签到成功") | content.includes("已签到")) {
+        console.log("电信签到-" + content)
+    }else{
+        await notify.sendNotify("中国电信签到-" + timeFormat(UTC8), content);
+        console.log("中国电信签到-" + content)
+    }
+
+    //运行完成后，删除下载的文件
+    console.log('运行完成后，删除下载的文件\n')
+    await deleteFile(path);
+
 }
 
-sign();
+start()
 
 function timeFormat(time) {
     let date;

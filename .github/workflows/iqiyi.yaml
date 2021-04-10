@@ -22,7 +22,7 @@ jobs:
                   npm install
             - name: "运行【爱奇艺会员签到】"
               run: |
-                  node function/iqiyi.js
+                  node function/iQIYI-DailyBonus/iqiyi.js
               env:
                   iQIYI_COOKIE: ${{ secrets.iQIYI_COOKIE }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
@@ -40,4 +40,4 @@ jobs:
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年3月26日
+#最后推送 2021年4月09日

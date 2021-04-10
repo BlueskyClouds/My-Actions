@@ -6,7 +6,7 @@ const fs = require('fs')
 const download = require('download')
 
 const $ = new Env('爱奇艺会员签到');
-const notify = $.isNode() ? require('./sendNotify') : '';
+const notify = $.isNode() ? require('../sendNotify') : '';
 // 公共变量
 const KEY = process.env.iQIYI_COOKIE
 const SEND_KEY = process.env.SEND_KEY

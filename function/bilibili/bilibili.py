@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import requests
 import sys;
-sys.path.append("My-Actions/function/")
+sys.path.append("My-Actions/function/bilibili/")
 from bilibiliapi import *
 from sendNotify import *
-import requests
 
 sendNotify = sendNotify()
 SEND_KEY = os.environ['SEND_KEY']

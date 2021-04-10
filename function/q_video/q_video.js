@@ -6,7 +6,7 @@
  */
 
 const $ = new Env('腾讯视频会员签到');
-const notify = $.isNode() ? require('./sendNotify') : '';
+const notify = $.isNode() ? require('../sendNotify') : '';
 let ref_url = ''
 const _cookie = process.env.V_COOKIE
 const SEND_KEY = process.env.SEND_KEY

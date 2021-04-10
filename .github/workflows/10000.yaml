@@ -23,7 +23,7 @@ jobs:
                   npm install
             - name: "运行【中国电信签到】"
               run: |
-                  node function/10000.js
+                  node function/10000/10000.js
               env:
                   TELECOM_MOBILE: ${{ secrets.TELECOM_MOBILE }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
@@ -41,4 +41,4 @@ jobs:
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年3月26日
+#最后推送 2021年4月09日
