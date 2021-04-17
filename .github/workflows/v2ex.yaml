@@ -3,7 +3,7 @@ name: V2ex签到
 on:
     workflow_dispatch:
     schedule:
-        - cron: "0 14 * * *"
+        - cron: "55 16 * * *"
     watch:
         types: [started]
 
