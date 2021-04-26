@@ -1,9 +1,9 @@
-name: WPS自动邀请
+name: 小米自动刷步数
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "45 0 * * *"
+    - cron: "0 10 * * *"
   watch:
     types: [started]
 
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: "Set up Python"
+      - name: "初始化Python"
         uses: actions/setup-python@v1
         with:
           python-version: 3.9
@@ -23,12 +23,12 @@ jobs:
       - name: "安装依赖包"
         run: pip install -r ./requirements.txt
 
-      - name: "运行 WPS自动邀请"
-        run: python3 function/wps/wps_invitation.py
+      - name: "运行 小米自动刷步数"
+        run: python3 function/xiaomi_sports/xiaomi.py
         env:
-          WPS_KEY: ${{ secrets.WPS_KEY }}
-          Orc_Id: ${{ secrets.Orc_Id }}
-          Orc_Secret: ${{ secrets.Orc_Secret }}
+          Xiaomi_User: ${{ secrets.Xiaomi_User }}
+          Xiaomi_Pw: ${{ secrets.Xiaomi_Pw }}
+          Xiaomi_Bs: ${{ secrets.Xiaomi_Bs }}
           SEND_KEY: ${{ secrets.SEND_KEY }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}

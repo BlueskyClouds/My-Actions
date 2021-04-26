@@ -2,11 +2,11 @@
 
 ## Why
 
-鉴于lxk0301大佬的分支因为fork过多用于执行actions导致被删，为了防范于未然
-
-麻烦各位**取消掉fork**,通过下面的方法重新创建分支，同步代码
+如果不想fork,通过下面的方法重新创建分支，同步代码
 
 此方式亲测可行，请放心食用
+
+当然别忘了对源仓库进行*Star* 
 
 ## How
 
@@ -16,7 +16,8 @@
 
 填入`Repository name`后点击最下方的`Create repository`即可完成创建
 
-
+如默认分支非`master`请自行修改`repo_sync.yml`的`destination_branch`或新建master分支并设置为默认分支
+*Settings* -> *Branch* -> 重命名分支为`master`即可
 
 ### 自己创建工作流
 
