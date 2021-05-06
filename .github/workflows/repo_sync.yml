@@ -1,0 +1,29 @@
+name: 自动同步-Actions
+on:
+  schedule:
+    - cron: '1 0,8,15 * * *'
+  workflow_dispatch:
+  watch:
+    types: started
+  repository_dispatch:
+    types: 同步仓库
+jobs:
+  repo-sync:
+    env:
+      PAT: ${{ secrets.PAT || github.event.client_payload.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: sync scripts
+        uses: repo-sync/github-sync@v2
+        if: env.PAT
+        with:
+          source_repo: "https://github.com/BlueSkyClouds/My-Actions.git"
+          source_branch: "master"
+          destination_branch: "master"
+          github_token: ${{ secrets.PAT || github.event.client_payload.PAT }}
+#最后推送 2021年5月05日

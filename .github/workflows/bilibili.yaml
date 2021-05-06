@@ -15,7 +15,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: "Set up Python"
+            - name: "初始化Python"
               uses: actions/setup-python@v1
               with:
                 python-version: 3.8
@@ -24,7 +24,7 @@ jobs:
               run: pip install -r ./requirements.txt
 
             - name: "运行 哔哩哔哩签到"
-              run: python3 function/bilibili.py
+              run: python3 function/bilibili/bilibili.py
               env:
                   BILI_USER: ${{ secrets.BILI_USER }}
                   BILI_PASS: ${{ secrets.BILI_PASS }}
@@ -34,11 +34,12 @@ jobs:
                   SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
-                  QQ_SKEY: ${{ secrets.QQ_SKEY}}
-                  QQ_MODE: ${{ secrets.QQ_MODE}}
+                  PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
+                  PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
                   TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
                   TG_USER_ID: ${{ secrets.TG_USER_ID }}
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年1月15日
+                  QYWX_AM: ${{ secrets.QYWX_AM}}
+#最后推送 2021年5月05日

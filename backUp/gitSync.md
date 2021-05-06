@@ -69,7 +69,7 @@ c)  复制 ``.github/pull.yml`` 粘贴后看到以下页面，注意github前面
 
 
 
-d)  请在https://github.com/wei/pull\#advanced-setup-with-config 页复制代码，	
+d)  请在https://github.com/wei/pull#most-common 页复制代码，	
 
 注意：upstream处要修改为上游仓库作者名字。	
 

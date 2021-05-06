@@ -3,7 +3,8 @@ name: 中国电信签到
 on:
     workflow_dispatch:
     schedule:
-        - cron: "30 0 * * *"
+        - cron: "0 */8 * * *"
+#电信经常签到不成功所以让他每八小时执行一下,一天三次
     watch:
         types: [started]
 
@@ -22,14 +23,12 @@ jobs:
                   npm install
             - name: "运行【中国电信签到】"
               run: |
-                  node function/10000.js
+                  node function/10000/10000.js
               env:
                   TELECOM_MOBILE: ${{ secrets.TELECOM_MOBILE }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
-                  QQ_SKEY: ${{ secrets.QQ_SKEY}}
-                  QQ_MODE: ${{ secrets.QQ_MODE}}
                   PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
                   PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
                   QYWX_AM: ${{ secrets.QYWX_AM}}
@@ -42,4 +41,4 @@ jobs:
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-#最后推送 2021年1月20日
+#最后推送 2021年5月05日

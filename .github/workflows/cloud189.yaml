@@ -1,0 +1,59 @@
+name: 天翼云盘签到抽奖
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 22,14 * * *"
+    watch:
+        types: [started]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: "初始化Python"
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.8
+
+            - name: "安装依赖包"
+              run: pip install -r ./requirements.txt
+
+            - name: "运行 天翼云盘签到抽奖"
+              run: |
+                pip install -r requirements.txt
+
+                user='${{ secrets.Cloud_USER }}'
+                pwd='${{ secrets.Cloud_PWD }}'
+
+                user_list=()
+                pwd_list=()
+                IFS="#"
+                for u in ${user[*]}
+                do
+                user_list[${#user_list[*]}]=${u}
+                done
+                for p in ${pwd[*]}
+                do
+                pwd_list[${#pwd_list[*]}]=${p}
+                done
+                user_num=${#user_list[*]}
+                pwd_num=${#pwd_list[*]}
+                if [ $user_num != $pwd_num ];then
+                echo "账号和密码个数不对应"
+                exit 1
+                else
+                echo "共有 $user_num 个账号，即将开始签到"
+                fi
+                for ((i=0;i<$user_num;i++))
+                do
+                python3 function/cloud189/checkin.py <<EOF
+                ${user_list[$i]}
+                ${pwd_list[$i]}
+                EOF
+                done
+#最后推送 2021年5月05日
